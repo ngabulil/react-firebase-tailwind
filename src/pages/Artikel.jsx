@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import Body from "../components/BodyModal";
 import Footer from "../components/FooterModal";
 import dayjs from "dayjs";
+import Zoom from "react-medium-image-zoom";
 
 const Artikel = () => {
   const [open, setOpen] = React.useState(false);
@@ -161,14 +162,20 @@ const Artikel = () => {
     {
       key: "image",
       title: "Gambar",
-      render: ({ value }) => <img className="w-40" src={value} />,
+      render: ({ value }) => (
+        <Zoom>
+          <img className="w-40" src={value} />
+        </Zoom>
+      ),
     },
     { key: "deskripsi", title: "Deskripsi" },
-    { key: "date", title: "Waktu", render: ({ value }) => {
-        return (
-            <p>{dayjs(value || "").format("DD MMM YYYY HH:mm")}</p>
-        )
-    } },
+    {
+      key: "date",
+      title: "Waktu",
+      render: ({ value }) => {
+        return <p>{dayjs(value || "").format("DD MMM YYYY HH:mm")}</p>;
+      },
+    },
     {
       render: ({ row }) => (
         <Action row={row} onDelete={handleDelete} onEdit={handleOpenEdit} />
@@ -178,7 +185,7 @@ const Artikel = () => {
   useEffect(() => {
     getArticle();
   }, []);
-  console.log(picture)
+  console.log(picture);
   return (
     <div>
       <h1 className="text-3xl font-bold mb-4">Artikel</h1>

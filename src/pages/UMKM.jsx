@@ -16,6 +16,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Swal from "sweetalert2";
 import Body from "../components/BodyModal";
 import Footer from "../components/FooterModal";
+import Zoom from "react-medium-image-zoom";
 
 const UMKM = () => {
   const [open, setOpen] = React.useState(false);
@@ -187,7 +188,6 @@ const UMKM = () => {
     }
   };
   const columns = [
-    
     { key: "name", title: "Nama" },
     { key: "harga", title: "Harga" },
     { key: "jam_op", title: "Jam Operasional" },
@@ -195,7 +195,11 @@ const UMKM = () => {
     {
       key: "image",
       title: "Gambar",
-      render: ({ value }) => <img className="w-40" src={value} />,
+      render: ({ value }) => (
+        <Zoom>
+          <img className="w-40" src={value} />
+        </Zoom>
+      ),
     },
     { key: "alamat", title: "Alamat" },
     { key: "no_tlp", title: "Nomor Telp" },
