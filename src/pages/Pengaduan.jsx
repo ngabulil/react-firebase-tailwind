@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "../components/Loading";
 import Swal from "sweetalert2";
-import { addDoc, collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config/config";
 import Select from "../components/Select";
 import ReusableTable from "../components/ReusableTable";
@@ -108,16 +108,6 @@ const Pengaduan = () => {
             />
           );
         }
-        // return (
-        //   <Action
-        //     onEdit={() => handleProses(row.id)}
-        //     onDelete={() => handleSelesai(row.id)}
-        //     labelEdit={"Proses"}
-        //     labelDelete={"Selesai"}
-        //     classEdit={{ className: "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2" }}
-        //     classDelete={{ className: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" }}
-        //   />
-        // )
       },
     },
   ];
@@ -170,7 +160,7 @@ const Pengaduan = () => {
         if (result.isConfirmed) {
           setLoading(true);
           try {
-            await addDoc(tanggapanCollection, {
+            await setDoc(doc(tanggapanCollection, idPengaduan), {
               deskripsi,
               id_pengaduan: idPengaduan,
               status: 2,
@@ -205,13 +195,7 @@ const Pengaduan = () => {
         if (result.isConfirmed) {
           setLoading(true);
           try {
-            const response = await getDocs(tanggapanCollection)
-            const responseData = response.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-            const tanggapan = responseData.find((tanggapan) => tanggapan.id_pengaduan == idPengaduan)
-            await updateDoc(doc(tanggapanCollection, tanggapan.id), {
+            await updateDoc(doc(tanggapanCollection, idPengaduan), {
               deskripsi,
               id_pengaduan: idPengaduan,
               status: 3,
