@@ -21,6 +21,7 @@ ChartJS.register(
 function VerticalBarChart({ datasets, labels }) {
     const options = {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'top',

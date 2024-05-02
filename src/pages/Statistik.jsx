@@ -181,7 +181,7 @@ const Statistik = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex">
+              <div className="flex h-[400px]">
                 <VerticalBarChart
                   datasets={educationData}
                   labels={["Total Pendidikan"]}
@@ -204,7 +204,7 @@ const Statistik = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex">
+              <div className="flex h-[400px]">
                 <VerticalBarChart
                   datasets={pendudukData}
                   labels={["Total Penduduk"]}

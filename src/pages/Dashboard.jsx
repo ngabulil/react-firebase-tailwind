@@ -74,18 +74,20 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          <div>
+          <div className="">
             <h2 className="text-xl font-bold">Total Layanan</h2>
-            <div className="w-[400px] mx-auto">
-              <DoughnutChart
-                dataArray={[
-                  pengaduanBelum.length,
-                  pengaduanDiproses.length,
-                  pengaduanSelesai.length,
-                ]}
-                label={"Pengaduan"}
-                labels={["Belum Diproses", "Diproses", "Selesai"]}
-              />
+            <div className="flex justify-center">
+              <div className="w-1/2 h-[500px]">
+                <DoughnutChart
+                  dataArray={[
+                    pengaduanBelum.length,
+                    pengaduanDiproses.length,
+                    pengaduanSelesai.length,
+                  ]}
+                  label={"Pengaduan"}
+                  labels={["Belum Diproses", "Diproses", "Selesai"]}
+                />
+              </div>
             </div>
           </div>
         </>
