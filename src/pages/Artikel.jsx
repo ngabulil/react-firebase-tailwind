@@ -3,6 +3,7 @@ import ReusableTable from "../components/ReusableTable";
 import Action from "../components/Action";
 import Modal from "../components/Modal";
 import {
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -108,7 +109,7 @@ const Artikel = () => {
         author,
         ...(!!pictureUrl && { image: pictureUrl }),
         deskripsi,
-        date: new Date().toISOString(),
+        date: Timestamp.now(),
       });
       await getArticle();
       handleClose();
@@ -129,7 +130,14 @@ const Artikel = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setDataArtikel(responseData);
+      const data = responseData.map((v) => {
+        const validDate = v?.date?.seconds * 1000;
+        return {
+          ...v,
+          ...(validDate ? { date: new Date(validDate).toISOString() } : {}),
+        };
+      })
+      setDataArtikel(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -146,7 +154,7 @@ const Artikel = () => {
         author,
         ...(!!pictureUrl && { image: pictureUrl }),
         deskripsi,
-        date: new Date().toISOString(),
+        date: Timestamp.now(),
       });
       await getArticle();
       handleClose();

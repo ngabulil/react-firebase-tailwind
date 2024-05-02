@@ -61,14 +61,12 @@ const Pengaduan = () => {
       key: "status",
       title: "Status",
       render: ({ value }) => {
-        if (value === 1) {
-          return <span className="text-red-500">Belum diproses</span>;
-        } else if (value === 2) {
+        if (value === 2) {
           return <span className="text-yellow-500">Sedang diproses</span>;
         } else if (value === 3) {
           return <span className="text-green-500">Selesai</span>;
         }
-        return <span className="text-red-500">{value}</span>;
+        return <span className="text-red-500">Belum diproses</span>;
       },
     },
     {
@@ -142,9 +140,17 @@ const Pengaduan = () => {
         id: doc.id,
         ...doc.data(),
       }));
+      console.log(responseData);
+      const data = responseData.map((v) => {
+        const validDate = v?.date?.seconds * 1000;
+        return {
+          ...v,
+          ...(validDate ? {date: new Date(validDate).toISOString()} : {})
+        }
+      })
       handleClose();
-      setLaporan(responseData);
-      setFilteredLaporan(responseData);
+      setLaporan(data);
+      setFilteredLaporan(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -246,6 +252,7 @@ const Pengaduan = () => {
       setFilteredLaporan(laporan.filter((item) => item.status === 3));
     }
   }, [option]);
+  console.log(filteredLaporan);
   return (
     <div>
       <h1 className="text-3xl font-bold mb-4">Pengaduan</h1>
